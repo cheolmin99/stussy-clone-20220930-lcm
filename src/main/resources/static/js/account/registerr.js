@@ -22,11 +22,27 @@ registerButton.onclick = () => {
         dataType: "json",                              //json 외 text 등을 사용할 수 있지만 js
         success: (response) => {                       //성공시에 실행 될 메소드
             alert("회원가입 요청 성공");
-            console.log(error);
         },
         error: (error) => {                            //실패시에 실행될 메소드
-            alert("회원가입 요청 실패");
-            console.log(error.responseJSON);
+            console.log(error.responseJSON.data);
+            loadErrorMessage(error.responseJSON.data);
         }
     });
+}
+
+function loadErrorMessage(errors) {
+    const errorList = document.querySelector(".errors");
+    const errorMsgs = document.querySelector(".error-msgs");
+    const errorsArray = Object.values(errors);
+    
+    errorMsgs.innerHTML ="";
+
+    errorsArray.forEach(error => {
+        errorMsgs.innerHTML += `
+            <li>${error}</li>
+        `;
+    });
+
+    errorList.classList.remove("errors-invisible");
+
 }
