@@ -1,4 +1,4 @@
-package com.stussy.stussyclone20220930cheolmin.controller;
+package com.stussy.stussyclone20220930cheolmin.dto.validation.controller;
 
 import com.stussy.stussyclone20220930cheolmin.dto.RegisterReqDto;
 import org.springframework.stereotype.Controller;
