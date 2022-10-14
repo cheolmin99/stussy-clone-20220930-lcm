@@ -1,5 +1,6 @@
 package com.stussy.stussyclone20220930cheolmin.config;
 
+import com.stussy.stussyclone20220930cheolmin.security.AuthFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/account/mypage","/index")
                 .authenticated()
+                .antMatchers("/admin/**")
+                .hasRole("ADMIN")
                 .anyRequest()
                 .permitAll()
                 .and()
@@ -30,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .loginPage("/account/login")
                 .loginProcessingUrl("/account/login")
+                .failureHandler(new AuthFailureHandler())
                 .defaultSuccessUrl("/index");
     }
 }
