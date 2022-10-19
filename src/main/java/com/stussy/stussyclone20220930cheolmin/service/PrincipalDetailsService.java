@@ -2,7 +2,7 @@ package com.stussy.stussyclone20220930cheolmin.service;
 
 import com.stussy.stussyclone20220930cheolmin.domain.User;
 import com.stussy.stussyclone20220930cheolmin.exception.CustomInternalServerErrorException;
-import com.stussy.stussyclone20220930cheolmin.repository.AccountRepository;
+import com.stussy.stussyclone20220930cheolmin.service.repository.AccountRepository;
 import com.stussy.stussyclone20220930cheolmin.security.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

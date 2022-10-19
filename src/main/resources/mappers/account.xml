@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.stussy.stussyclone20220930cheolmin.repository.AccountRepository">
+<mapper namespace="com.stussy.stussyclone20220930cheolmin.service.repository.AccountRepository">
     <resultMap id="role" type="com.stussy.stussyclone20220930cheolmin.domain.Role">
         <result property="id" column="id"/>
         <result property="name" column="role_name"/>
