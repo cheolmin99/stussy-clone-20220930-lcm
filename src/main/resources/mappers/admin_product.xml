@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.stussy.stussyclone20220930cheolmin.service.repository.admin.ProductManagementRepository">
+<mapper namespace="com.stussy.stussyclone20220930cheolmin.repository.admin.ProductManagementRepository">
     <resultMap id="product_category" type="com.stussy.stussyclone20220930cheolmin.domain.ProductCategory">
         <result property="category_id" column="id"/>
         <result property="group_id" column="group_id"/>
@@ -17,6 +17,34 @@
             category_name
         from
             pdt_category_mst
+    </select>
+
+    <insert id="saveProductMst" parameterType="com.stussy.stussyclone20220930cheolmin.domain.Product">
+        insert into
+        pdt_mst
+        values(
+        0,
+        #{pdt_name},
+        #{category_id},
+        #{pdt_price},
+        #{pdt_simple_info},
+        #{pdt_detail_info},
+        #{pdt_option_info},
+        #{pdt_management_info},
+        #{pdt_shipping_info},
+        now(),
+        now()
+        )
+    </insert>
+
+    <select id="getProductList" resultType="com.stussy.stussyclone20220930cheolmin.domain.OptionProductMst">
+        select
+            pm.id as pdt_id,
+            pcm.category_name as category,
+            pm.pdt_name
+        from
+            pdt_mst pm
+            left outer join pdt_category_mst pcm on(pcm.id = pm.category_id)
     </select>
 
 </mapper>

@@ -1,4 +1,4 @@
-package com.stussy.stussyclone20220930cheolmin.service.repository;
+package com.stussy.stussyclone20220930cheolmin.repository;
 
 import com.stussy.stussyclone20220930cheolmin.domain.User;
 import org.apache.ibatis.annotations.Mapper;

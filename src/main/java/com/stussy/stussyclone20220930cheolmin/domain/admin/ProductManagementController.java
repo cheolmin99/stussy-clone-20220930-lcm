@@ -1,4 +1,4 @@
-package com.stussy.stussyclone20220930cheolmin.controller.admin;
+package com.stussy.stussyclone20220930cheolmin.domain.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +10,11 @@ public class ProductManagementController {
 
     @GetMapping("/product/register")
     public String loadProductRegister() {
-        return "admin/regist_ration";
+        return "admin/product_registration";
+    }
+
+    @GetMapping("/product/register/dtl")
+    public String loadProductDtlRegister(){
+        return "admin/product_dtl_registration";
     }
 }
