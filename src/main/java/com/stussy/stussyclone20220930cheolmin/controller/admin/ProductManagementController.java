@@ -1,4 +1,4 @@
-package com.stussy.stussyclone20220930cheolmin.domain.admin;
+package com.stussy.stussyclone20220930cheolmin.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

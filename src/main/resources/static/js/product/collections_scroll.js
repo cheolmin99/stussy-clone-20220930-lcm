@@ -73,6 +73,10 @@ class CollectionsService{
         return this.#instance;
     }
 
+    constructor() {
+        new pageScroll();
+    }
+
     collectionsEntity = {
         page: 1,
         totalCount: 0,
@@ -120,5 +124,5 @@ class CollectionsService{
 
 window.onload = () => {
     CollectionsService.getInstance().loadCollections();
-    new pageScroll();
+    
 }

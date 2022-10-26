@@ -1,8 +1,9 @@
 package com.stussy.stussyclone20220930cheolmin.api.admin;
 
 import com.stussy.stussyclone20220930cheolmin.aop.annotation.LogAspect;
-import com.stussy.stussyclone20220930cheolmin.aop.annotation.ValudAspect;
+import com.stussy.stussyclone20220930cheolmin.aop.annotation.ValidAspect;
 import com.stussy.stussyclone20220930cheolmin.dto.CMRespDto;
+import com.stussy.stussyclone20220930cheolmin.dto.admin.ProductRegisterDtlReqDto;
 import com.stussy.stussyclone20220930cheolmin.dto.admin.ProductRegisterReqDto;
 import com.stussy.stussyclone20220930cheolmin.service.admin.ProductManagementService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class ProductAdminApi {
     private final ProductManagementService productManagementService;
 
     @LogAspect
-    @ValudAspect
+    @ValidAspect
     @PostMapping("/product")
     public ResponseEntity<?> registerProductMst(@Valid @RequestBody ProductRegisterReqDto productRegisterReqDto,
                                                 BindingResult bindingResult) throws Exception {
@@ -49,10 +50,25 @@ public class ProductAdminApi {
                 .body(new CMRespDto<>("Get Successfully", productManagementService.getCategoryList()));
     }
 
-    @GetMapping("/option/product/mst")
+    @GetMapping("/option/products/mst")
     public ResponseEntity<?> getProductMstList() throws Exception {
         return ResponseEntity.ok()
                 .body(new CMRespDto<>("Get Successfully", productManagementService.getProductMstList()));
+    }
+    @GetMapping("/option/products/size/{productId}")
+    public ResponseEntity<?> getSizeList(@PathVariable int productId) throws Exception {
+        return ResponseEntity.ok()
+                .body(new CMRespDto<>("Get Successfully", productManagementService.getSizeList(productId)));
+    }
+
+    @PostMapping("/product/dtl")
+    public ResponseEntity<?> registerDtl(@RequestBody ProductRegisterDtlReqDto productRegisterDtlReqDto)  throws Exception {
+
+        productManagementService.checkDuplicatedColor(productRegisterDtlReqDto);
+        productManagementService.registerDtl(productRegisterDtlReqDto);
+
+        return ResponseEntity.created(null)
+                .body(new CMRespDto<>("Register Successfully", true));
     }
 
 }
