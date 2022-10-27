@@ -63,7 +63,7 @@ public class ProductAdminApi {
 
     @PostMapping("/product/dtl")
     public ResponseEntity<?> registerDtl(@RequestBody ProductRegisterDtlReqDto productRegisterDtlReqDto)  throws Exception {
-
+        
         productManagementService.checkDuplicatedColor(productRegisterDtlReqDto);
         productManagementService.registerDtl(productRegisterDtlReqDto);
 
