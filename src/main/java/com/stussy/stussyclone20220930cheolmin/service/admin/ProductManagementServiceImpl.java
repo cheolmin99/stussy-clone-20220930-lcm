@@ -8,6 +8,8 @@ import com.stussy.stussyclone20220930cheolmin.repository.admin.ProductManagement
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -22,10 +24,11 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ProductManagementServiceImpl implements ProductManagementService {
 
+    private final ResourceLoader resourceLoader;
+
     private final ProductManagementRepository productManagementRepository;
 
-    @Value("${file.path}")
-    private String filePath;
+
 
     @Override
     public List<CategoryResponseDto> getCategoryList() throws Exception {
@@ -93,16 +96,29 @@ public class ProductManagementServiceImpl implements ProductManagementService {
         List<ProductImg> productImgs = new ArrayList<ProductImg>();
 
         productImgReqDto.getFiles().forEach(file -> {
+            Resource resource = resourceLoader.getResource("classpath:static/upload/product");
+            String filePath = null;
+
+            try {
+                if(!resource.exists()) {
+                    String tempPath = resourceLoader.getResource("classpath:static").getURI().toString();
+                    tempPath = tempPath.substring(tempPath.indexOf("/") + 1);
+
+                    File f = new File( tempPath + "/upload/product");
+                    f.mkdirs();
+                }
+                filePath = resource.getURI().toString();
+
+                filePath = filePath.substring(filePath.indexOf("/") + 1);
+                System.out.println(filePath);
+            }catch (IOException e){
+                throw new RuntimeException(e);
+            }
             String originName = file.getOriginalFilename();
             String extension = originName.substring(originName.lastIndexOf("."));
             String saveName = UUID.randomUUID().toString().replaceAll("-", "") + extension;
 
-            Path path = Paths.get(filePath + "product/" + saveName);
-
-            File f = new File(filePath + "product");
-            if(!f.exists()) {
-                f.mkdirs();
-            }
+            Path path = Paths.get(filePath + "/" + saveName);
 
             try {
                 Files.write(path, file.getBytes());
