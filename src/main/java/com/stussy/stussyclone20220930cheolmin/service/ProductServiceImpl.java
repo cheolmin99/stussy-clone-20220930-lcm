@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService{
         List<String> pdtImgs = new ArrayList<String>();
 
         product.getPdt_dtls().forEach(dtl -> {
-            if(pdtColors.containsKey(dtl.getPdt_color())){
+            if(!pdtColors.containsKey(dtl.getPdt_color())){
                 pdtColors.put(dtl.getPdt_color(), new ArrayList<Map<String, Object>>());
             }
         });
